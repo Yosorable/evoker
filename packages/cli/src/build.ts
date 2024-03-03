@@ -79,8 +79,10 @@ export async function build(mode: string = "development") {
       copy({
         targets: [
           {
-            src: resolve(`src/${defaultConfig.build.assetsDir}`),
-            dest: resolve(outDir)
+            // src: resolve(`src/${defaultConfig.build.assetsDir}`),
+            // dest: resolve(outDir)
+            src: `src/${defaultConfig.build.assetsDir}`,
+            dest: outDir
           }
         ],
         hook: "writeBundle"
