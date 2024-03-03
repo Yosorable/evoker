@@ -77,7 +77,7 @@ function pack() {
         appendDirectory(filePath)
       } else {
         archive.file(filePath, { name: file })
-        files.push(file)
+        files.push(file.replaceAll("\\", "/"))
 
         const stat = fs.statSync(filePath)
         totalSize += stat.size

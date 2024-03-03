@@ -86,7 +86,7 @@ export function zip(root: string, files: string[]): Promise<Buffer> {
       })
 
       for (const file of files) {
-        const name = getRelativeFilePath(root, file)
+        const name = getRelativeFilePath(path.resolve(root), file)
         if (fs.existsSync(file)) {
           const data = fs.readFileSync(file)
           archive.append(data, { name })
