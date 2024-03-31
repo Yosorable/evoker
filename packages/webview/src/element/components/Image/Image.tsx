@@ -131,16 +131,16 @@ export default defineComponent({
     }
 
     // 图片fade in临时方案
-    const setFadeIn = (loaded?: Boolean) => {
+    const setFadeIn = (end?: Boolean) => {
       if (!props.fadeIn) {
         return
       }
       const el = container.value
-      if (!loaded && el) {
+      if (!end && el) {
         el.style.opacity = "0"
         el.style.transition = "opacity ease .5s"
       }
-      loaded && el && (el.style.opacity = "1")
+      end && el && (el.style.opacity = "1")
     }
 
     const tryLoadImage = () => {
@@ -175,6 +175,7 @@ export default defineComponent({
     }
 
     const onError = (error: Error) => {
+      setFadeIn(true)
       emit("error", { errMsg: error })
     }
 
