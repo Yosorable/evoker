@@ -17,6 +17,7 @@ import { isDevtools } from "@evoker/shared"
 const props = {
   src: String,
   lazyLoad: { type: Boolean, default: false },
+  fadeIn: { type: Boolean, default: false },
   mode: { type: String as PropType<ImageMode>, default: "scaleToFill" },
   webp: { type: Boolean, default: false }
 }
@@ -129,7 +130,21 @@ export default defineComponent({
       return 0
     }
 
+    // 图片fade in临时方案
+    const setFadeIn = (loaded?: Boolean) => {
+      if (!props.fadeIn) {
+        return
+      }
+      const el = container.value
+      if (!loaded && el) {
+        el.style.opacity = "0"
+        el.style.transition = "opacity ease .5s"
+      }
+      loaded && el && (el.style.opacity = "1")
+    }
+
     const tryLoadImage = () => {
+      setFadeIn()
       props.lazyLoad ? lazyLoadImage() : immediateLoadImage()
     }
 
@@ -155,6 +170,7 @@ export default defineComponent({
       imageSize.width = result.width
       imageSize.height = result.height
       updateSize()
+      setFadeIn(true)
       emit("load", { width: result.width, height: result.height })
     }
 
