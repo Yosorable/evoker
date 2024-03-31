@@ -36,7 +36,7 @@ export default function vitePluginEvokerRouter(): Plugin {
     },
 
     transform(code: string, id: string) {
-      if (path.resolve(id) !== input) {
+      if (resolve(id) !== input) {
         return
       }
 
